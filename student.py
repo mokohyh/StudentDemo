@@ -1,3 +1,4 @@
+# student class
 class Student(object):
     def __init__(self, name, gender, tel):
         # name  gender  tel
