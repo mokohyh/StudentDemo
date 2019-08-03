@@ -6,6 +6,8 @@ class StudentManager():
         self.student_list = []
 
     def run(self):
+        # 加载学员
+        self.laod_student()
         while True:
             # 显示功能菜单
             self.show_menu()
@@ -82,16 +84,41 @@ class StudentManager():
 
     # 查询学员的信息
     def search_student(self):
-        pass
+        search_name = input("Please input need search student name")
+        for i in self.student_list:
+            if search_name == i.name:
+                print(f"name is {i.name},gender is {i.gender},tel is{i.tel}")
+                break
+        else:
+            print("Not found")
 
     # x显示所有的学员信息
     def show_stuent(self):
-        pass
+        print('name\tgender\ttel')
+        for i in self.student_list:
+            print(f"{i.name}\t{i.gender}\t{i.tel}")
 
     # 保存学员信息
     def save_student(self):
-        pass
+        # 打开文件
+        f = open('studenr.data','w')
+        # 文件写入数据
+        new_list = [i.__dict__ for i in self.student_list]
+        f.write(str(new_list))
+        # 关闭文件
+        f.close()
 
     # 加载学员信息
     def laod_student(self):
-        pass
+        # 打开文件，尝试r打开，如果有异常w
+        try:
+            f = open('student.data','r')
+        except :
+            f = open("student.data","w")
+        # 读取数据，文件读取出的数据是字符串还是还原列表类型[{}] 转化为[学员]
+        else:
+            data = f.read()
+            new_list = eval(data)
+            self.student_list = [Student(i['name'], i['gender'], i['tel']) for i in new_list]
+        # 关闭文件
+        f.close()
