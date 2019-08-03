@@ -1,3 +1,6 @@
+from StudentDemo.student import Student
+
+
 class StudentManager():
     def __init__(self):
         self.student_list = []
@@ -31,7 +34,6 @@ class StudentManager():
                 # 退出
                 break
 
-
     # 显示功能菜单
     @staticmethod
     def show_menu():
@@ -42,17 +44,41 @@ class StudentManager():
         print("[4]Select Student Message")
         print("[5]Select Student All Message")
         print("[6]Save Student Message")
+        print("[7]Exit")
+
     # 添加学员
     def add_student(self):
-        pass
+        name = input("Please Input Student Name:")
+        gender = input("Please Input Student gender:")
+        tel = input("Please Input Student tel:")
+        # 创建学员对象
+        student = Student(name, gender, tel)
+        # 添加学员到学员列表
+        self.student_list.append(student)
+        print(self.student_list)
 
     # 删除学员
     def del_student(self):
-        pass
+        old_name = input("Please input you want delete student name: ")
+        for i in self.student_list:
+            if i.name == old_name:
+                self.student_list.remove(i)
+                break
+        else:
+            print("This student not found !")
+        print(self.student_list)
 
     # 修改学员信息
     def modify_student(self):
-        pass
+        modify_name = input("Please input modify student name:")
+        for i in self.student_list:
+            if modify_name == i.name:
+                i.name = input("Student new name")
+                i.gender = input("Student new gender")
+                i.tel = input("Student new tel")
+        else:
+            print("This student not found!")
+
 
     # 查询学员的信息
     def search_student(self):
